@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentHub — Platform Summary</title>
+  <style>
+    :root {
+      --green-950: #1a2e05;
+      --green-800: #3f6212;
+      --green-600: #65a30d;
+      --green-400: #a3e635;
+      --green-200: #d9f99d;
+      --green-50: #f7fee7;
+      --amber: #ca8a04;
+      --coral: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--green-950);
+      background: linear-gradient(160deg, #d9f99d 0%, #bef264 45%, #a3e635 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    header {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 24px rgba(26,46,5,0.08);
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #0d9488, #65a30d, #16a34a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tagline { color: #4d7c0f; font-size: 0.95rem; margin-top: 0.35rem; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .stat {
+      background: var(--green-50);
+      border-radius: 0.75rem;
+      padding: 0.85rem;
+      text-align: center;
+    }
+    .stat strong { display: block; font-size: 1.5rem; color: var(--green-600); }
+    .stat span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; }
+    section {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 16px rgba(26,46,5,0.06);
+    }
+    h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4d7c0f;
+      margin-bottom: 1rem;
+    }
+    h3 { font-size: 1.05rem; margin-bottom: 0.25rem; }
+    .agent {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.75rem 1rem;
+      align-items: start;
+      padding: 1rem 0;
+      border-bottom: 1px solid #ecfccb;
+    }
+    .agent:last-child { border-bottom: none; padding-bottom: 0; }
+    .icon { font-size: 1.75rem; line-height: 1; }
+    .meta { font-size: 0.8rem; color: #6b7280; }
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: #ecfccb;
+      color: var(--green-800);
+      margin-right: 0.25rem;
+    }
+    .badge.featured { background: #dbeafe; color: #1d4ed8; }
+    .badge.hot { background: #fee2e2; color: var(--coral); }
+    a.btn, a.link {
+      color: var(--green-600);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    a.btn {
+      display: inline-block;
+      background: white;
+      border: 1px solid #bbf7d0;
+      border-radius: 0.6rem;
+      padding: 0.35rem 0.75rem;
+      margin-top: 0.25rem;
+    }
+    a.btn:hover { background: var(--green-50); }
+    ul { padding-left: 1.25rem; }
+    li { margin-bottom: 0.35rem; font-size: 0.9rem; }
+    .fee-box {
+      background: var(--green-50);
+      border: 1px solid #bbf7d0;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+    .fee-box strong { color: var(--green-600); }
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 1rem;
+    }
+    .nav { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .nav a {
+      background: white;
+      color: var(--green-600);
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border: 1px solid #bbf7d0;
+    }
+    .nav a:hover { background: var(--green-50); }
+    code {
+      background: #f1f5f9;
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem;
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>🤖 AgentHub — Platform Summary</h1>
+      <p class="tagline">AI agent marketplace with Ticket Sniper Bot automation · Dev server &amp; static HTML build</p>
+      <div class="stats">
+        <div class="stat"><strong>8</strong><span>Agents</span></div>
+        <div class="stat"><strong>3</strong><span>Categories</span></div>
+        <div class="stat"><strong>4.6</strong><span>Avg rating</span></div>
+        <div class="stat"><strong>2.5%</strong><span>Snipe fee</span></div>
+      </div>
+      <div class="nav">
+        <a href="/">Open Marketplace</a>
+        <a href="/agents/trending-video-finder">Trending Video</a>
+        <a href="/agents/flight-hotel-finder">Flight &amp; Hotel</a>
+        <a href="/agents/concert-ticket-finder">Concerts</a>
+        <a href="/agents/personal-loan-finder">Loans</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>What is AgentHub?</h2>
+      <p style="font-size:0.95rem;color:#374151;">
+        AgentHub is a marketplace of AI-powered bots that help users find tickets, travel, loans,
+        currency rates, car rentals, trending videos, and deals. Each agent includes search filters,
+        AI chat assistance, and <strong>Ticket Sniper Bot</strong> integration to monitor prices and
+        auto-book when targets are met.
+      </p>
+    </section>
+
+    <section>
+      <h2>Agent catalog</h2>
+
+      <div class="agent">
+        <div class="icon">📺</div>
+        <div>
+          <h3>Trending Video Finder</h3>
+          <p class="meta">ClipPulse AI · Entertainment · ★ 4.6</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Fando-style pipeline: discover short-form clips, queue for review, approve, caption, and publish.</p>
+          <span class="badge featured">Featured</span><span class="badge hot">Hot</span>
+        </div>
+        <a class="btn" href="/agents/trending-video-finder">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">🎵</div>
+        <div>
+          <h3>Concert Ticket Finder</h3>
+          <p class="meta">SoundWave Labs · Entertainment · ★ 4.8</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Search concerts by artist, genre, city, month. Snipe tickets with automated queue and seat scanning.</p>
+          <span class="badge featured">Featured</span><span class="badge hot">Hot</span>
+        </div>
+        <a class="btn" href="/agents/concert-ticket-finder">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">✈️</div>
+        <div>
+          <h3>Flight &amp; Hotel Finder</h3>
+          <p class="meta">SkyRoute AI · Travel · ★ 4.7</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Flights, hotels, bundles, and <strong>Snipe Mode</strong> to hunt by route and budget.</p>
+          <span class="badge featured">Featured</span>
+        </div>
+        <a class="btn" href="/agents/flight-hotel-finder">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">💱</div>
+        <div>
+          <h3>Currency Exchange</h3>
+          <p class="meta">ForexPulse · Finance · ★ 4.5</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">20-currency converter, bank/agent rate compare, rate snipe alerts.</p>
+        </div>
+        <a class="btn" href="/agents/currency-exchange">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">🚗</div>
+        <div>
+          <h3>Car Rental Finder</h3>
+          <p class="meta">DriveEasy · Travel · ★ 4.4</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Filter by type, transmission, budget. Snipe daily rental rates.</p>
+        </div>
+        <a class="btn" href="/agents/car-rental-finder">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">⚡</div>
+        <div>
+          <h3>Event Deal &amp; Flash Sale</h3>
+          <p class="meta">DealRadar · Entertainment · ★ 4.5</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Browse flash sales across electronics, travel, fashion, and more.</p>
+        </div>
+        <a class="btn" href="/agents/event-deal-flash-sale">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">🎯</div>
+        <div>
+          <h3>Event Deal Hunter</h3>
+          <p class="meta">DealRadar · Entertainment · ★ 4.8</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Snipe price drops, restocks, and flash sale checkouts.</p>
+          <span class="badge featured">Featured</span><span class="badge hot">Hot</span>
+        </div>
+        <a class="btn" href="/agents/event-deal-hunter">Launch →</a>
+      </div>
+
+      <div class="agent">
+        <div class="icon">💰</div>
+        <div>
+          <h3>Personal Loan Finder</h3>
+          <p class="meta">RateLend · Finance · ★ 4.8</p>
+          <p style="font-size:0.88rem;margin-top:0.35rem;">Compare loan APRs, calculate payments, snipe target rates.</p>
+          <span class="badge featured">Featured</span><span class="badge hot">Hot</span>
+        </div>
+        <a class="btn" href="/agents/personal-loan-finder">Launch →</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Platform features</h2>
+      <ul>
+        <li><strong>Trending Video pipeline</strong> — discover → queue → approve → caption → publish (Fando-inspired)</li>
+        <li><strong>Ticket Sniper Bot</strong> — automated hunts with live status, queue position, CAPTCHA/OTP handoff</li>
+        <li><strong>Snipe Mode</strong> — proactive route/budget hunts (Flight &amp; Hotel Finder)</li>
+        <li><strong>2.5% platform fee</strong> — charged on every bot snipe</li>
+        <li><strong>AI assistants</strong> — per-agent chat with travel, finance, and deal tips</li>
+        <li><strong>Lemon green theme</strong> — glass UI, marketplace search, category filters</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Monetization</h2>
+      <div class="fee-box">
+        AgentHub charges a <strong>2.5% platform fee</strong> on every bot snipe,
+        calculated from the estimated snipe value. Users accept the fee before starting a hunt.
+      </div>
+    </section>
+
+    <section>
+      <h2>Run locally</h2>
+      <ul>
+        <li>Dev server: <code>npm run dev</code> → <code>http://localhost:3000</code></li>
+        <li>Marketplace: <code>/</code></li>
+        <li>This summary: <code>/summary.html</code></li>
+        <li>Static build: <code>npm run build:html</code> → <code>out/</code></li>
+      </ul>
+      <p style="font-size:0.85rem;color:#6b7280;margin-top:0.75rem;">
+        Static build runs snipe hunts in browser demo mode. AI chat requires a server API key.
+      </p>
+    </section>
+
+    <section>
+      <h2>Project paths</h2>
+      <ul>
+        <li>Project root: <code>~/Projects/agenthub</code></li>
+        <li>Agent data: <code>lib/data/agents.ts</code></li>
+        <li>Video discovery: <code>lib/video-discovery/engine.ts</code></li>
+        <li>Snipe UI: <code>components/sniper/</code></li>
+      </ul>
+    </section>
+
+    <footer>
+      AgentHub · Platform summary · June 2026
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+AgentHub — Static HTML Demo
+===========================
+
+QUICK START (easiest)
+---------------------
+macOS: double-click OPEN-DEMO.command
+       (starts a local server — recommended)
+
+Or in Terminal, from this folder:
+  npx serve .
+
+Then open http://localhost:3000 in your browser.
+Start at summary.html or index.html
+
+
+ALSO WORKS OFFLINE
+------------------
+You can double-click index.html directly — styles and navigation
+should load without a server (fixed for file:// viewing).
+
+
+WHAT'S INCLUDED
+---------------
+- summary.html        Platform overview (start here for review)
+- index.html          Marketplace home
+- agents/             All 8 agent demos
+- _next/              Styles & JavaScript (required — do not delete)
+
+
+AGENTS TO TRY
+-------------
+- agents/trending-video-finder/index.html → Discovery → Queue → Publish
+- agents/flight-hotel-finder/index.html   → Snipe Mode tab
+- agents/concert-ticket-finder/index.html → Snipe Tickets
+- agents/personal-loan-finder/index.html  → Compare & snipe rates
+
+
+NOTES
+-----
+- Snipe hunts run in browser demo mode (no backend needed)
+- AI chat is offline in this static build (no API key)
+- 2.5% platform fee applies on every snipe (demo)
