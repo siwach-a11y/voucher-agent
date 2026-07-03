@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { RewardOffer, RewardType } from "@/lib/types";
 import {
   getOffersByType,
   rewardCategories,
   formatOfferEnds,
 } from "@/lib/data/rewards";
+import { DiscoveredOffer } from "@/lib/pipeline/types";
 import ResultCard from "@/components/ui/ResultCard";
 import StatusBar from "@/components/ui/StatusBar";
 import AgentAssistant from "@/components/ui/AgentAssistant";
@@ -74,6 +75,22 @@ export default function RewardsAgentView({
     setAssistantPrompt(prompt);
     setAssistantOpen(true);
   };
+
+  const [liveOffers, setLiveOffers] = useState<DiscoveredOffer[]>([]);
+  useEffect(() => {
+    let active = true;
+    fetch(`/api/offers/published?type=${encodeURIComponent(type)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (active && data?.offers) setLiveOffers(data.offers as DiscoveredOffer[]);
+      })
+      .catch(() => {
+        /* no backend (static demo) — hide */
+      });
+    return () => {
+      active = false;
+    };
+  }, [type]);
 
   const offers = useMemo(() => getOffersByType(type), [type]);
 
@@ -143,6 +160,44 @@ export default function RewardsAgentView({
           message={`${filtered.length} offers found`}
         />
       </div>
+
+      {liveOffers.length > 0 && (
+        <section>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold text-white">
+              Live offers
+              <span className="ml-2 text-xs font-normal text-slate-400">{liveOffers.length}</span>
+            </h3>
+            <span className="badge-pill bg-emerald-500/15 text-emerald-300 border-emerald-400/25">
+              Approved by operators
+            </span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {liveOffers.map((o) => (
+              <ResultCard
+                key={o.id}
+                icon={icon}
+                title={o.title}
+                subtitle={`${o.merchant}${o.country ? ` · ${o.country}` : ""}`}
+                price={o.discountText ?? "Offer"}
+                meta={[
+                  o.category,
+                  ...(o.promoCode ? [`Code: ${o.promoCode}`] : []),
+                  o.status === "published" ? "Published" : "Approved",
+                ]}
+                availability="available"
+                actionLabel={actionLabel}
+                onAction={() => window.open(o.url, "_blank")}
+                onDetails={() =>
+                  openAssistant(
+                    `Explain this ${type.replace("-", " ")} offer and whether it's worth using: "${o.title}" from ${o.merchant} in ${o.country}. ${o.description}${o.promoCode ? ` Promo code: ${o.promoCode}.` : ""}`
+                  )
+                }
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map((o) => (
